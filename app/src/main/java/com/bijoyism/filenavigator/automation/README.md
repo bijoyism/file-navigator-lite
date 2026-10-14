@@ -1,0 +1,1 @@
+Rule editing and previews currently live in `ui/FileNavigatorApp.kt`; matching is in `domain/OrganizationRule.kt`; persistent records are in `data/AppDataRepository.kt`; direct and scheduled execution is in `worker/OrganizeRuleWorker.kt` and `worker/RuleDetectionWorker.kt`. Rules inspect direct files in the selected source folder only.

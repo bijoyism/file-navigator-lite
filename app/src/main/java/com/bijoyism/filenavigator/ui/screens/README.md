@@ -1,0 +1,1 @@
+The five Compose destinations are currently defined in `ui/FileNavigatorApp.kt` to keep this small project manageable. If screens grow, split Home, File Browser, Automation, Activity and Settings into this package without moving storage mutations into composables.

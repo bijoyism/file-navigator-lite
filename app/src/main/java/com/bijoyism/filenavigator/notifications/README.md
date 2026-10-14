@@ -1,0 +1,1 @@
+`RuleNotifications.kt` creates the local notification channel and action intents. `RuleNotificationReceiver.kt` handles explicit organize and dismiss actions. Notification permission is opt-in on Android 13+, quiet mode suppresses alerts, and notification actions still depend on valid persisted SAF grants.

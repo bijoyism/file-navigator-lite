@@ -1,0 +1,1 @@
+Operation records and favorites use local Preferences DataStore through `data/AppDataRepository.kt`. Storage operations return undo metadata; `storage/StorageRepository.kt` implements provider-aware undo, and `ActivityScreen` exposes undo only for records with a supported action. Permanent delete cannot be restored reliably.

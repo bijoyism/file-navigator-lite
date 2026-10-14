@@ -1,0 +1,1 @@
+`WorkerScheduler.kt` controls unique periodic detection, manual scanning, and notification-triggered rule execution. `RuleDetectionWorker.kt` scans enabled rule source folders and deduplicates notifications. `OrganizeRuleWorker.kt` executes a selected enabled rule and records per-file results. WorkManager timing is approximate and scans are not recursive.
