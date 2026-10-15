@@ -145,10 +145,10 @@ class RuleMatcherTest {
             extensions = setOf("pdf"),
         ).isValid()
 
-        assertTrue(
-            missingFoldersResult
-                ?.contains("source and destination") == true,
-        )
+        val hasMissingFolderError =
+            missingFoldersResult?.contains("source and destination") ?: false
+
+        assertTrue(hasMissingFolderError)
 
         val missingFiltersResult = OrganizationRule(
             name = "No filters",
@@ -156,8 +156,9 @@ class RuleMatcherTest {
             destinationTreeUri = "destination",
         ).isValid()
 
-        assertTrue(
-            missingFiltersResult?.contains("at least one") == true,
-        )
+        val hasMissingFiltersError =
+            missingFiltersResult?.contains("at least one") ?: false
+
+        assertTrue(hasMissingFiltersError)
     }
 }
