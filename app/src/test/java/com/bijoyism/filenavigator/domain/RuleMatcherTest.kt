@@ -11,6 +11,7 @@ class RuleMatcherTest {
             name = "APK files",
             extensions = setOf(".apk"),
         )
+
         assertTrue(
             RuleMatcher.matches(
                 "installer.APK",
@@ -33,6 +34,7 @@ class RuleMatcherTest {
             name = "Images",
             mimeTypes = setOf("image/*"),
         )
+
         assertTrue(
             RuleMatcher.matches(
                 "photo.unknown",
@@ -56,6 +58,7 @@ class RuleMatcherTest {
             extensions = setOf("png", "jpg"),
             filenameKeywords = setOf("screenshot", "screen shot"),
         )
+
         assertTrue(
             RuleMatcher.matches(
                 "Screenshot_2026.png",
@@ -82,6 +85,7 @@ class RuleMatcherTest {
     @Test
     fun emptyRuleDoesNotMatchEverything() {
         val rule = OrganizationRule(name = "Empty")
+
         assertFalse(
             RuleMatcher.matches(
                 "anything.txt",
@@ -99,6 +103,7 @@ class RuleMatcherTest {
             minBytes = 1_000,
             maxBytes = 8_000,
         )
+
         assertTrue(
             RuleMatcher.matches(
                 "file.pdf",
@@ -135,18 +140,24 @@ class RuleMatcherTest {
 
     @Test
     fun validatesMissingFoldersAndFilters() {
+        val missingFoldersResult = OrganizationRule(
+            name = "Missing",
+            extensions = setOf("pdf"),
+        ).isValid()
+
         assertTrue(
-            OrganizationRule(
-                name = "Missing",
-                extensions = setOf("pdf"),
-            ).isValid()!!.contains("source and destination"),
+            missingFoldersResult
+                ?.contains("source and destination") == true,
         )
+
+        val missingFiltersResult = OrganizationRule(
+            name = "No filters",
+            sourceTreeUri = "source",
+            destinationTreeUri = "destination",
+        ).isValid()
+
         assertTrue(
-            OrganizationRule(
-                name = "No filters",
-                sourceTreeUri = "source",
-                destinationTreeUri = "destination",
-            ).isValid()!!.contains("at least one"),
+            missingFiltersResult?.contains("at least one") == true,
         )
     }
 }
