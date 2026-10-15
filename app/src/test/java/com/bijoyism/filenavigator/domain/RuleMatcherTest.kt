@@ -7,10 +7,11 @@ import org.junit.Test
 class RuleMatcherTest {
     @Test
     fun matchesExtensionWithoutLeadingDot() {
-        val rule = OrganizationRule(
-            name = "APK files",
-            extensions = setOf(".apk"),
-        )
+        val rule =
+            OrganizationRule(
+                name = "APK files",
+                extensions = setOf(".apk"),
+            )
 
         assertTrue(
             RuleMatcher.matches(
@@ -30,10 +31,11 @@ class RuleMatcherTest {
 
     @Test
     fun supportsWildcardMimeTypes() {
-        val rule = OrganizationRule(
-            name = "Images",
-            mimeTypes = setOf("image/*"),
-        )
+        val rule =
+            OrganizationRule(
+                name = "Images",
+                mimeTypes = setOf("image/*"),
+            )
 
         assertTrue(
             RuleMatcher.matches(
@@ -53,11 +55,12 @@ class RuleMatcherTest {
 
     @Test
     fun allConfiguredFilterGroupsMustMatch() {
-        val rule = OrganizationRule(
-            name = "Screenshots",
-            extensions = setOf("png", "jpg"),
-            filenameKeywords = setOf("screenshot", "screen shot"),
-        )
+        val rule =
+            OrganizationRule(
+                name = "Screenshots",
+                extensions = setOf("png", "jpg"),
+                filenameKeywords = setOf("screenshot", "screen shot"),
+            )
 
         assertTrue(
             RuleMatcher.matches(
@@ -97,12 +100,13 @@ class RuleMatcherTest {
 
     @Test
     fun appliesMinimumAndMaximumSizeFilters() {
-        val rule = OrganizationRule(
-            name = "Small PDFs",
-            extensions = setOf("pdf"),
-            minBytes = 1_000,
-            maxBytes = 8_000,
-        )
+        val rule =
+            OrganizationRule(
+                name = "Small PDFs",
+                extensions = setOf("pdf"),
+                minBytes = 1_000,
+                maxBytes = 8_000,
+            )
 
         assertTrue(
             RuleMatcher.matches(
@@ -140,21 +144,23 @@ class RuleMatcherTest {
 
     @Test
     fun validatesMissingFoldersAndFilters() {
-        val missingFoldersResult = OrganizationRule(
-            name = "Missing",
-            extensions = setOf("pdf"),
-        ).isValid()
+        val missingFoldersResult =
+            OrganizationRule(
+                name = "Missing",
+                extensions = setOf("pdf"),
+            ).isValid()
 
         val hasMissingFolderError =
             missingFoldersResult?.contains("source and destination") ?: false
 
         assertTrue(hasMissingFolderError)
 
-        val missingFiltersResult = OrganizationRule(
-            name = "No filters",
-            sourceTreeUri = "source",
-            destinationTreeUri = "destination",
-        ).isValid()
+        val missingFiltersResult =
+            OrganizationRule(
+                name = "No filters",
+                sourceTreeUri = "source",
+                destinationTreeUri = "destination",
+            ).isValid()
 
         val hasMissingFiltersError =
             missingFiltersResult?.contains("at least one") ?: false
