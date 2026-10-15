@@ -1,3 +1,4 @@
+
 package com.bijoyism.filenavigator.ui
 
 import android.Manifest
@@ -324,6 +325,8 @@ private fun FileBrowserScreen(viewModel: FileBrowserViewModel, appData: AppDataR
             }
         }
     }
+
+
     val destinationPicker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
         if (uri != null && rootTreeUri != null && destinationAction.isNotBlank()) {
             val action = destinationAction
@@ -637,6 +640,7 @@ private fun FileBrowserScreen(viewModel: FileBrowserViewModel, appData: AppDataR
         )
     }
 }
+
 
 private fun handleEntryClick(
     entry: BrowserEntry,
@@ -966,6 +970,7 @@ private fun AutomationScreen(appData: AppDataRepository) {
         )
     }
 }
+
 
 @Composable
 private fun RuleEditorDialog(
