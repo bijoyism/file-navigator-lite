@@ -140,14 +140,16 @@ class RuleMatcherTest {
             OrganizationRule(
                 name = "Missing",
                 extensions = setOf("pdf"),
-            ).isValid()!!.contains("source and destination"),
+            ).isValid()!!
+                .contains("source and destination"),
         )
         assertTrue(
             OrganizationRule(
                 name = "No filters",
                 sourceTreeUri = "source",
                 destinationTreeUri = "destination",
-            ).isValid()!!.contains("at least one"),
+            ).isValid()!!
+                .contains("at least one"),
         )
     }
 }
