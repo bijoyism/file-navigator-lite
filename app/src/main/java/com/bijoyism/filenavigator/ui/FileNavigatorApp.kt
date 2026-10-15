@@ -1163,14 +1163,14 @@ private fun TextInputDialog(
         onDismissRequest = onDismiss,
         title = { Text(title) },
         text = {
-    OutlinedTextField(
-        value = value,
-        onValueChange = onValueChange,
-        label = { Text(label) },
-        singleLine = true,
-    )
-},
-                confirmButton = {
+            OutlinedTextField(
+                value = value,
+                onValueChange = onValueChange,
+                label = { Text(label) },
+                singleLine = true,
+            )
+        },
+        confirmButton = {
             TextButton(
                 onClick = onConfirm,
                 enabled = value.isNotBlank(),
@@ -1178,7 +1178,6 @@ private fun TextInputDialog(
                 Text(confirmLabel)
             }
         },
-        
         dismissButton = {
             TextButton(
                 onClick = onDismiss,
