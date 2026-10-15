@@ -46,9 +46,20 @@ class RuleMatcherTest {
         assertFalse(RuleMatcher.matches("file.pdf", "application/pdf", null, rule))
     }
 
-    @Test
+        @Test
     fun validatesMissingFoldersAndFilters() {
-        assertTrue(OrganizationRule(name = "Missing", extensions = setOf("pdf")).isValid()!!.contains("source and destination"))
-        assertTrue(OrganizationRule(name = "No filters", sourceTreeUri = "source", destinationTreeUri = "destination").isValid()!!.contains("at least one"))
+        assertTrue(
+            OrganizationRule(
+                name = "Missing",
+                extensions = setOf("pdf"),
+            ).isValid()!!.contains("source and destination"),
+        )
+        assertTrue(
+            OrganizationRule(
+                name = "No filters",
+                sourceTreeUri = "source",
+                destinationTreeUri = "destination",
+            ).isValid()!!.contains("at least one"),
+        )
     }
 }
