@@ -1,3 +1,4 @@
+
 package com.bijoyism.filenavigator.worker
 
 import android.content.Context
@@ -15,33 +16,49 @@ object WorkerScheduler {
 
     fun updatePeriodicScanning(context: Context, enabled: Boolean) {
         val manager = WorkManager.getInstance(context)
+
         if (!enabled) {
             manager.cancelUniqueWork(SCAN_WORK_NAME)
             return
         }
-        val request = PeriodicWorkRequestBuilder<RuleDetectionWorker>(15, TimeUnit.MINUTES)
-                        .setConstraints(
-                Constraints.Builder()
-                    .setRequiredNetworkType(NetworkType.NOT_REQUIRED)
-                    .build(),
-            )
 
-            .build()
-        manager.enqueueUniquePeriodicWork(SCAN_WORK_NAME, ExistingPeriodicWorkPolicy.UPDATE, request)
+        val request =
+            PeriodicWorkRequestBuilder<RuleDetectionWorker>(
+                15,
+                TimeUnit.MINUTES,
+            )
+                .setConstraints(
+                    Constraints.Builder()
+                        .setRequiredNetworkType(NetworkType.NOT_REQUIRED)
+                        .build(),
+                )
+                .build()
+
+        manager.enqueueUniquePeriodicWork(
+            SCAN_WORK_NAME,
+            ExistingPeriodicWorkPolicy.UPDATE,
+            request,
+        )
     }
 
-                fun scanNow(context: Context) {
-        val request = OneTimeWorkRequestBuilder<RuleDetectionWorker>()
-            .build()
+    fun scanNow(context: Context) {
+        val request =
+            OneTimeWorkRequestBuilder<RuleDetectionWorker>()
+                .build()
 
         WorkManager.getInstance(context)
             .enqueue(request)
     }
 
     fun organizeRule(context: Context, ruleId: String) {
-        val request = OneTimeWorkRequestBuilder<OrganizeRuleWorker>()
-            .setInputData(workDataOf(OrganizeRuleWorker.KEY_RULE_ID to ruleId))
-            .build()
-        WorkManager.getInstance(context).enqueue(request)
+        val request =
+            OneTimeWorkRequestBuilder<OrganizeRuleWorker>()
+                .setInputData(
+                    workDataOf(OrganizeRuleWorker.KEY_RULE_ID to ruleId),
+                )
+                .build()
+
+        WorkManager.getInstance(context)
+            .enqueue(request)
     }
 }
