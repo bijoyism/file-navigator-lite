@@ -25,8 +25,12 @@ object WorkerScheduler {
         manager.enqueueUniquePeriodicWork(SCAN_WORK_NAME, ExistingPeriodicWorkPolicy.UPDATE, request)
     }
 
-    fun scanNow(context: Context) {
-        WorkManager.getInstance(context).enqueue(OneTimeWorkRequestBuilder<RuleDetectionWorker>().build())
+        fun scanNow(context: Context) {
+        val request = OneTimeWorkRequestBuilder<RuleDetectionWorker>()
+            .build()
+
+        WorkManager.getInstance(context)
+            .enqueue(request)
     }
 
     fun organizeRule(context: Context, ruleId: String) {
