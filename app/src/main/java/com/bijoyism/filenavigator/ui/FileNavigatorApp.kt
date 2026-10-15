@@ -1,4 +1,3 @@
-
 package com.bijoyism.filenavigator.ui
 
 import android.Manifest
@@ -1171,8 +1170,19 @@ private fun TextInputDialog(
         singleLine = true,
     )
 },
-        confirmButton = { TextButton(onClick = onConfirm, enabled = value.isNotBlank()) { Text(confirmLabel) } },
-        dismissButton = { TextButton(onClick = onDismiss) { Text("Cancel") } },
+                confirmButton = {
+            TextButton(
+                onClick = onConfirm,
+                enabled = value.isNotBlank(),
+            ) {
+                Text(confirmLabel)
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Cancel")
+            }
+        },
     )
 }
 
