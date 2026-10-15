@@ -20,12 +20,17 @@ object WorkerScheduler {
             return
         }
         val request = PeriodicWorkRequestBuilder<RuleDetectionWorker>(15, TimeUnit.MINUTES)
-            .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.NOT_REQUIRED).build())
+                        .setConstraints(
+                Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.NOT_REQUIRED)
+                    .build(),
+            )
+
             .build()
         manager.enqueueUniquePeriodicWork(SCAN_WORK_NAME, ExistingPeriodicWorkPolicy.UPDATE, request)
     }
 
-        fun scanNow(context: Context) {
+                fun scanNow(context: Context) {
         val request = OneTimeWorkRequestBuilder<RuleDetectionWorker>()
             .build()
 
