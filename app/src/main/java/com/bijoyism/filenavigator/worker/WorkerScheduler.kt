@@ -21,17 +21,16 @@ object WorkerScheduler {
             return
         }
 
-        val request =
-            PeriodicWorkRequestBuilder<RuleDetectionWorker>(
-                15,
-                TimeUnit.MINUTES,
-            )
-                .setConstraints(
-                    Constraints.Builder()
-                        .setRequiredNetworkType(NetworkType.NOT_REQUIRED)
-                        .build(),
-                )
-                .build()
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.NOT_REQUIRED)
+            .build()
+
+        val request = PeriodicWorkRequestBuilder<RuleDetectionWorker>(
+            15,
+            TimeUnit.MINUTES,
+        )
+            .setConstraints(constraints)
+            .build()
 
         manager.enqueueUniquePeriodicWork(
             SCAN_WORK_NAME,
@@ -41,22 +40,21 @@ object WorkerScheduler {
     }
 
     fun scanNow(context: Context) {
-        val request =
-            OneTimeWorkRequestBuilder<RuleDetectionWorker>()
-                .build()
+        val request = OneTimeWorkRequestBuilder<RuleDetectionWorker>()
+            .build()
 
-        WorkManager.getInstance(context).enqueue(request)
+        val manager = WorkManager.getInstance(context)
+        manager.enqueue(request)
     }
 
     fun organizeRule(context: Context, ruleId: String) {
-        val inputData = workDataOf(
-            OrganizeRuleWorker.KEY_RULE_ID to ruleId,
-        )
-        val request =
-            OneTimeWorkRequestBuilder<OrganizeRuleWorker>()
-                .setInputData(inputData)
-                .build()
+        val inputData = workDataOf(OrganizeRuleWorker.KEY_RULE_ID to ruleId)
 
-        WorkManager.getInstance(context).enqueue(request)
+        val request = OneTimeWorkRequestBuilder<OrganizeRuleWorker>()
+            .setInputData(inputData)
+            .build()
+
+        val manager = WorkManager.getInstance(context)
+        manager.enqueue(request)
     }
 }
