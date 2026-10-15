@@ -1178,8 +1178,11 @@ private fun TextInputDialog(
                 Text(confirmLabel)
             }
         },
+        
         dismissButton = {
-            TextButton(onClick = onDismiss) {
+            TextButton(
+                onClick = onDismiss,
+            ) {
                 Text("Cancel")
             }
         },
